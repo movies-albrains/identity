@@ -2,8 +2,10 @@
 Identity management
 
 ### TODO
-- refacto
 - user email validation
+- user reset password
+- role management for user and client
+- refacto
 - unit test
 - integration test with keycloak testcontainer
 
