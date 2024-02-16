@@ -1,0 +1,35 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+jwt:
+  auth:
+    converter:
+      resource-id: login-app
+spring:
+  application:
+    name: identity
+  security:
+    oauth2:
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: login-app
+#            authorization-grant-type: password
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8080/realms/SpringBootKeycloak
+#            user-name-attribute: preferred_username
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/SpringBootKeycloak
+  threads:
+    virtual:
+      enabled: true
+
+keycloak:
+  realm: SpringBootKeycloak
+  client-id: login-app
+  client-secret: Q62K5lJxo6XaDKvTE7AdJdJoHoyPiro7
+  client-name: login-app
+  url: 'http://localhost:18080'
