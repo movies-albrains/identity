@@ -1,4 +1,4 @@
-package io.albrains.moviebrains.moviebrainsidentity.config.security
+package io.albrains.moviebrains.identity.config.security
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.convert.converter.Converter
@@ -17,10 +17,15 @@ import kotlin.collections.ArrayList
 @Component
 class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
 
-    @Value("#{jwt.auth.converter.resource-id}")
+    @Value("\${jwt.auth.converter.resource-id}")
     private lateinit var resourceId: String
 
     private val jwtGrantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
+
+    companion object {
+        private const val REALM_ACCESS_CLAIM = "realm_access"
+        private const val ROLES_CLAIM = "roles"
+    }
 
     override fun convert(jwt: Jwt): AbstractAuthenticationToken? {
         val authorities = jwtGrantedAuthoritiesConverter.convert(jwt)
@@ -34,7 +39,7 @@ class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
     }
 
     private fun extractResourceRoles(jwt: Jwt): Collection<GrantedAuthority> {
-        val realmAccess: Map<String, Collection<String>>? = jwt.getClaim("realm_access")
+        val realmAccess: Map<String, Collection<String>>? = jwt.getClaim(REALM_ACCESS_CLAIM)
         val resourceAccess: Map<String, Map<String, Collection<String>>>? = jwt.getClaim("resource_access")
 
         var allRoles: Collection<String> = ArrayList()
@@ -49,7 +54,7 @@ class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
             }
         }
 
-        if(realmAccess != null && realmAccess.containsKey("roles")){
+        if(realmAccess != null && realmAccess.containsKey(ROLES_CLAIM)){
             realmRoles = realmAccess["roles"] as Collection<String>
             allRoles = allRoles.plus(realmRoles)
         }

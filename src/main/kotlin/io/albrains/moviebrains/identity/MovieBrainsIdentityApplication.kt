@@ -1,6 +1,6 @@
-package io.albrains.moviebrains.moviebrainsidentity
+package io.albrains.moviebrains.identity
 
-import io.albrains.moviebrains.moviebrainsidentity.config.keycloak.KeycloakProperties
+import io.albrains.moviebrains.identity.config.keycloak.KeycloakProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication

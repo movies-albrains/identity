@@ -1,4 +1,4 @@
-package io.albrains.moviebrains.moviebrainsidentity.main.service
+package io.albrains.moviebrains.identity.main.service
 
 data class UserRegistration(
     val username: String,

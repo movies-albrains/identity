@@ -22,7 +22,7 @@ spring:
 #            user-name-attribute: preferred_username
       resource-server:
         jwt:
-          issuer-uri: http://localhost:8080/realms/SpringBootKeycloak
+          issuer-uri: http://localhost:18080/realms/SpringBootKeycloak
   threads:
     virtual:
       enabled: true
@@ -33,3 +33,6 @@ keycloak:
   client-secret: Q62K5lJxo6XaDKvTE7AdJdJoHoyPiro7
   client-name: login-app
   url: 'http://localhost:18080'
+logging:
+  level:
+    org.springframework.security: DEBUG

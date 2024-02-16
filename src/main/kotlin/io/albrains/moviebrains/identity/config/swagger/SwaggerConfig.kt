@@ -1,4 +1,4 @@
-package io.albrains.moviebrains.moviebrainsidentity.config.swagger
+package io.albrains.moviebrains.identity.config.swagger
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI

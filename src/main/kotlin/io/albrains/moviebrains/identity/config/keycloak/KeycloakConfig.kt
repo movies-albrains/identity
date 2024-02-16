@@ -1,4 +1,4 @@
-package io.albrains.moviebrains.moviebrainsidentity.config.keycloak
+package io.albrains.moviebrains.identity.config.keycloak
 
 import org.keycloak.OAuth2Constants
 import org.keycloak.admin.client.Keycloak

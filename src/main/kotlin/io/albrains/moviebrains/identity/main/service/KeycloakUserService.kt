@@ -1,4 +1,4 @@
-package io.albrains.moviebrains.moviebrainsidentity.main.service
+package io.albrains.moviebrains.identity.main.service
 
 import org.keycloak.admin.client.Keycloak
 import org.keycloak.representations.idm.CredentialRepresentation
@@ -10,7 +10,7 @@ import java.util.*
 @Service
 class KeycloakUserService(private val keycloak: Keycloak): IKeycloakUserService {
 
-    @Value("#{keycloak.realm}")
+    @Value("\${keycloak.realm}")
     private lateinit var keycloakRealm: String
 
     override fun createUser(userRegistration: UserRegistration): UserRegistration {
@@ -21,6 +21,7 @@ class KeycloakUserService(private val keycloak: Keycloak): IKeycloakUserService 
         userRepresentation.isEmailVerified = true
         userRepresentation.firstName = userRegistration.firstname
         userRepresentation.lastName = userRegistration.lastname
+        // TODO rôle de l'utilisateur
 
         val credentialRepresentation = CredentialRepresentation()
         credentialRepresentation.value = userRegistration.password
@@ -29,14 +30,15 @@ class KeycloakUserService(private val keycloak: Keycloak): IKeycloakUserService 
 
         userRepresentation.credentials = listOf(credentialRepresentation)
 
-        val usersResource = keycloak.realm(keycloakRealm).users()
+        val usersResource = keycloak
+            .realm(keycloakRealm)
+            .users()
         val response = usersResource.create(userRepresentation)
 
         if (Objects.equals(response.status, 201)) {
             return userRegistration
         }
-
-        TODO("")
+        TODO("to implement")
     }
 
     override fun getUserById(id: String): UserRepresentation {
