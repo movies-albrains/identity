@@ -1,6 +1,12 @@
 # identity
 Identity management
 
+### TODO
+- refacto
+- user email validation
+- unit test
+- integration test with keycloak testcontainer
+
 # Getting Started
 
 ### Reference Documentation
