@@ -1,7 +1,7 @@
-package io.albrains.moviebrains.identity.main.controller
+package io.albrains.moviebrains.identity.main.authenticate.controller
 
-import io.albrains.moviebrains.identity.main.service.UserAuthRequest
-import io.albrains.moviebrains.identity.main.service.UserAuthenticationService
+import io.albrains.moviebrains.identity.main.user.service.domain.UserAuthRequest
+import io.albrains.moviebrains.identity.main.authenticate.service.UserAuthenticationService
 import org.keycloak.representations.AccessTokenResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

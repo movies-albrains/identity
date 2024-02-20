@@ -1,6 +1,7 @@
-package io.albrains.moviebrains.identity.main.service
+package io.albrains.moviebrains.identity.main.authenticate.service
 
 import io.albrains.moviebrains.identity.config.keycloak.KeycloakProperties
+import io.albrains.moviebrains.identity.main.user.service.domain.UserAuthRequest
 import org.keycloak.OAuth2Constants
 import org.keycloak.admin.client.KeycloakBuilder
 import org.keycloak.representations.AccessTokenResponse

@@ -1,8 +1,8 @@
-package io.albrains.moviebrains.identity.main.controller
+package io.albrains.moviebrains.identity.main.user.controller
 
-import io.albrains.moviebrains.identity.main.service.IKeycloakUserService
-import io.albrains.moviebrains.identity.main.service.UserRegistration
-import org.keycloak.representations.idm.UserRepresentation
+import io.albrains.moviebrains.identity.main.user.service.domain.UserRegistration
+import io.albrains.moviebrains.identity.main.user.service.UserRegistrationService
+import io.albrains.moviebrains.identity.main.user.service.domain.UserResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,21 +15,21 @@ import java.security.Principal
 
 @RestController
 @RequestMapping("/users")
-class UserController(private val keycloakUserService: IKeycloakUserService) {
+class UserController(private val userRegistrationService: UserRegistrationService) {
 
     @PostMapping
-    fun createUser(@RequestBody userRegistration: UserRegistration): UserRegistration {
-        return keycloakUserService.createUser(userRegistration)
+    fun createUser(@RequestBody userRegistration: UserRegistration): UserResponse {
+        return userRegistrationService.createUser(userRegistration)
     }
 
     @GetMapping("/connected")
-    fun getUser(principal: Principal): UserRepresentation {
-        return keycloakUserService.getUserById(principal.name)
+    fun getUser(principal: Principal): UserResponse {
+        return userRegistrationService.getUserById(principal.name)
     }
 
     @DeleteMapping("/{userId}")
     fun deleteUser(@PathVariable userId: String): ResponseEntity<Void> {
-        keycloakUserService.deleteUserById(userId)
+        userRegistrationService.deleteUserById(userId)
         return ResponseEntity.noContent().build()
     }
 }

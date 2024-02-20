@@ -21,12 +21,17 @@ class WebSecurityConfig(private val jwtAuthConverter: JwtAuthConverter) {
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         return httpSecurity
+            .csrf{ it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers(HttpMethod.GET, "/users/**").hasRole(GENERAL)
-                it.requestMatchers(HttpMethod.POST, "/users/**").hasRole(GENERAL)
-                it.requestMatchers(HttpMethod.PUT, "/users/**").hasRole(GENERAL)
-                it.requestMatchers(HttpMethod.DELETE, "/users/**").hasRole(GENERAL)
-                it.anyRequest().authenticated()
+                    .requestMatchers(HttpMethod.POST, "/users/**").hasRole(GENERAL)
+                    .requestMatchers(HttpMethod.PUT, "/users/**").hasRole(GENERAL)
+                    .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole(GENERAL)
+                    .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .requestMatchers("/v3/api-docs/**", "/configuration/**", "/swagger-ui/**",
+                        "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/api-docs/**").permitAll()
+                    .anyRequest().authenticated()
             }
             .oauth2ResourceServer { oauth2 ->
                 oauth2.jwt {jwt ->
@@ -35,35 +40,5 @@ class WebSecurityConfig(private val jwtAuthConverter: JwtAuthConverter) {
             }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .build()
-    }
-
-    @Bean
-    fun webSecurityCustomizer(): WebSecurityCustomizer {
-        return WebSecurityCustomizer {
-            it.ignoring().requestMatchers(
-                HttpMethod.POST,
-                "/public/**",
-                "/authenticate"
-            );
-            it.ignoring().requestMatchers(
-                HttpMethod.GET,
-                "/public/**"
-            );
-            it.ignoring().requestMatchers(
-                HttpMethod.DELETE,
-                "/public/**"
-            );
-            it.ignoring().requestMatchers(
-                HttpMethod.PUT,
-                "/public/**"
-            );
-            it.ignoring().requestMatchers(
-                HttpMethod.OPTIONS,
-                "/**"
-            )
-                .requestMatchers("/v3/api-docs/**", "/configuration/**", "/swagger-ui/**",
-                    "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/api-docs/**");
-
-        }
     }
 }
