@@ -8,4 +8,5 @@ interface UserRegistrationProvider {
     fun createUser(userRegistration: UserRegistration): UserResponse
     fun getUserById(id: String): UserResponse
     fun deleteUserById(id: String)
+    fun resetPassword(id: String, newPassword: String)
 }

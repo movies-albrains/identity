@@ -64,6 +64,18 @@ class KeycloakUserRegistrationProvider(private val keycloak: Keycloak): UserRegi
         )
     }
 
+    override fun resetPassword(id: String, newPassword: String) {
+        val credentialRepresentation = CredentialRepresentation()
+        credentialRepresentation.value = newPassword
+        credentialRepresentation.isTemporary = false
+        credentialRepresentation.type = CredentialRepresentation.PASSWORD
+
+        keycloak.realm(keycloakRealm)
+            .users()
+            .get(id)
+            .resetPassword(credentialRepresentation)
+    }
+
     override fun deleteUserById(id: String) {
         keycloak.realm(keycloakRealm)
             .users()

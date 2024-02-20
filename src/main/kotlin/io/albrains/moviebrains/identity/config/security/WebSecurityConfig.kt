@@ -22,14 +22,21 @@ class WebSecurityConfig(private val jwtAuthConverter: JwtAuthConverter) {
     fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         return httpSecurity
             .csrf{ it.disable() }
-            .authorizeHttpRequests {
-                it.requestMatchers("/users/admin/**").hasRole(ADMIN)
-                    .requestMatchers( "/users/**").hasAnyRole(ADMIN, GENERAL)
-                    .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/v3/api-docs/**", "/configuration/**", "/swagger-ui/**",
-                        "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/api-docs/**").permitAll()
-                    .anyRequest().authenticated()
+            .authorizeHttpRequests { it
+                .requestMatchers(HttpMethod.GET, "/users/me").authenticated()
+                .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole(ADMIN)
+
+                .requestMatchers( "/admin/user/**").hasAnyRole(ADMIN)
+
+                .requestMatchers(HttpMethod.PUT, "/password-reset").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/password-reset/confirm").permitAll()
+
+                .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
+                .requestMatchers(HttpMethod.GET, "/authenticate/sessions/active").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/configuration/**", "/swagger-ui/**",
+                    "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/api-docs/**").permitAll()
+                .anyRequest().hasRole(ADMIN)
             }
             .oauth2ResourceServer { oauth2 ->
                 oauth2.jwt {jwt ->
