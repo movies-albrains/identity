@@ -24,7 +24,7 @@ class WebSecurityConfig(private val jwtAuthConverter: JwtAuthConverter) {
             .csrf{ it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers("/users/admin/**").hasRole(ADMIN)
-                    .requestMatchers( "/users/**").hasRole(GENERAL)
+                    .requestMatchers( "/users/**").hasAnyRole(ADMIN, GENERAL)
                     .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .requestMatchers("/v3/api-docs/**", "/configuration/**", "/swagger-ui/**",

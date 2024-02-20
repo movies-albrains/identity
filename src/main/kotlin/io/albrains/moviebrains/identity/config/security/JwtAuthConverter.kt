@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component
 import java.util.*
 import kotlin.collections.ArrayList
 
-
+// TODO: à mettre dans une librairie
 @Component
 class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
 
-    @Value("\${jwt.auth.converter.resource-id}")
-    private lateinit var resourceId: String
+//    @Value("\${jwt.auth.converter.resource-id}")
+//    private lateinit var resourceId: String
 
     private val jwtGrantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
 
@@ -59,9 +59,10 @@ class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
             allRoles = allRoles.plus(realmRoles)
         }
 
-        if (allRoles.isEmpty() || !Objects.equals(resourceId,jwt.getClaim("azp")) ) {
+        // TODO vérifier le client qui envoit un token
+        /*if (allRoles.isEmpty() || !Objects.equals(resourceId,jwt.getClaim("azp")) ) {
             return setOf();
-        }
+        }*/
 
         return allRoles.map { SimpleGrantedAuthority("ROLE_$it") }
     }
