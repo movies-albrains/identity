@@ -21,6 +21,7 @@ class KeycloakUserRegistrationProvider(private val keycloak: Keycloak): UserRegi
         userRepresentation.isEnabled = true
         userRepresentation.username = userRegistration.username
         userRepresentation.email = userRegistration.email
+        // TODO vérification email
         userRepresentation.isEmailVerified = true
         userRepresentation.firstName = userRegistration.firstName
         userRepresentation.lastName = userRegistration.lastName
