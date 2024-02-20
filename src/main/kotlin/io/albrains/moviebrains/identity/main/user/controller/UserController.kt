@@ -17,19 +17,8 @@ import java.security.Principal
 @RequestMapping("/users")
 class UserController(private val userRegistrationService: UserRegistrationService) {
 
-    @PostMapping
-    fun createUser(@RequestBody userRegistration: UserRegistration): UserResponse {
-        return userRegistrationService.createUser(userRegistration)
-    }
-
     @GetMapping("/connected")
     fun getUser(principal: Principal): UserResponse {
         return userRegistrationService.getUserById(principal.name)
-    }
-
-    @DeleteMapping("/{userId}")
-    fun deleteUser(@PathVariable userId: String): ResponseEntity<Void> {
-        userRegistrationService.deleteUserById(userId)
-        return ResponseEntity.noContent().build()
     }
 }
