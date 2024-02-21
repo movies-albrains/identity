@@ -38,8 +38,10 @@ dependencies {
     implementation("io.github.oshai:kotlin-logging-jvm:6.0.3")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    testImplementation("com.github.dasniko:testcontainers-keycloak:3.2.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.testcontainers:junit-jupiter")
 }
 
 tasks.withType<KotlinCompile> {

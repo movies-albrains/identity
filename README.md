@@ -3,7 +3,6 @@ Identity management
 
 ### TODO
 - gestion des erreurs http
-- import realm and all app clients when using docker compose
 - integration test with keycloak testcontainer
 - unit test and test coverage
 - documentation swagger
