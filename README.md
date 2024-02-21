@@ -6,6 +6,7 @@ Identity management
 - import realm and all app clients when using docker compose
 - integration test with keycloak testcontainer
 - unit test and test coverage
+- documentation swagger
 - user email validation
 - user reset password and code validation
 - role management for user and client
