@@ -2,12 +2,16 @@
 Identity management
 
 ### TODO
-- user email validation
-- user reset password
-- role management for user and client
-- refacto
-- unit test
+- gestion des erreurs http
+- import realm and all app clients when using docker compose
 - integration test with keycloak testcontainer
+- unit test and test coverage
+- user email validation
+- user reset password and code validation
+- role management for user and client
+- https keycloak and identity
+- keycloak production mode (https, health check...)
+- refacto
 
 # Getting Started
 
