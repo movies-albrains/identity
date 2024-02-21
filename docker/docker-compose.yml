@@ -16,8 +16,7 @@ services:
       KC_DB_URL_HOST: ${KC_DB_URL_HOST}
       KC_DB_USERNAME: ${KC_DB_USERNAME}
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
-    command:
-      - start-dev
+    command: "start-dev --import-realm"
     depends_on:
       mb-identity-postgres:
         condition: service_healthy
@@ -25,6 +24,7 @@ services:
       - mb-identity
     volumes:
       - mb-identity-keycloak-data
+      - ./keycloak:/opt/keycloak/data/import
 
   mb-identity-postgres:
     image: postgres:${POSTGRES_VERSION}
