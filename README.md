@@ -2,13 +2,13 @@
 Identity management
 
 ### TODO
+- role management for user and client
+- user reset password and code validation
+- user email validation
+- documentation swagger
 - gestion des erreurs http
 - integration test with keycloak testcontainer
 - unit test and test coverage
-- documentation swagger
-- user email validation
-- user reset password and code validation
-- role management for user and client
 - https keycloak and identity
 - keycloak production mode (https, health check...)
 - refacto
