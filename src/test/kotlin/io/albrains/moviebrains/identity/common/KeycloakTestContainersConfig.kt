@@ -16,8 +16,10 @@ class KeycloakTestContainersConfig {
     fun keycloakContainer(registry: DynamicPropertyRegistry): KeycloakContainer {
         val keycloak = KeycloakContainer()
             .withRealmImportFile("keycloak/realm.json")
-        registry.add("spring.security.oauth2.resourceserver.jwt.issuer-uri")
-        {"${keycloak.authServerUrl}realms/SpringBootKeycloak"}
+        registry.add("spring.security.oauth2.resource-server.jwt.issuer-uri")
+            { "${keycloak.authServerUrl}realms/SpringBootKeycloak" }
+        registry.add("keycloak.url")
+            { keycloak.authServerUrl }
         return keycloak
     }
 }

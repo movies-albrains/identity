@@ -1,0 +1,16 @@
+
+keycloak:
+  realm: SpringBootKeycloak
+  client-id: login-app
+  client-secret: suvRUa2B50tBx2nELcfJ0j5EnygYYcWe
+  client-name: login-app
+  url: 'http://localhost:18080'
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:18080/realms/SpringBootKeycloak
+  threads:
+    virtual:
+      enabled: true

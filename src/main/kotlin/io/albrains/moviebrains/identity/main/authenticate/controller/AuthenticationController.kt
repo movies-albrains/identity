@@ -1,6 +1,6 @@
 package io.albrains.moviebrains.identity.main.authenticate.controller
 
-import io.albrains.moviebrains.identity.main.user.service.domain.UserAuthRequest
+import io.albrains.moviebrains.identity.main.user.service.domain.AuthRequest
 import io.albrains.moviebrains.identity.main.authenticate.service.UserAuthenticationService
 import org.keycloak.representations.AccessTokenResponse
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,8 +14,8 @@ import java.security.Principal
 @RequestMapping("/authenticate")
 class AuthenticationController(private val userAuthenticationService: UserAuthenticationService) {
     @PostMapping
-    fun authenticate(@RequestBody userAuthRequest: UserAuthRequest): AccessTokenResponse {
-        return userAuthenticationService.authenticate(userAuthRequest)
+    fun authenticate(@RequestBody authRequest: AuthRequest): AccessTokenResponse {
+        return userAuthenticationService.authenticate(authRequest)
     }
 
     @GetMapping("/sessions/active")
