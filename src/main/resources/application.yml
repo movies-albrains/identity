@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 9081
   servlet:
     context-path: /api
 #jwt:
@@ -11,27 +11,18 @@ spring:
     name: identity
   security:
     oauth2:
-#      client:
-#        registration:
-#          keycloak:
-#            client-id: login-app
-#            authorization-grant-type: password
-#        provider:
-#          keycloak:
-#            issuer-uri: http://localhost:8080/realms/SpringBootKeycloak
-#            user-name-attribute: preferred_username
       resource-server:
         jwt:
-          issuer-uri: http://localhost:18080/realms/SpringBootKeycloak
+          issuer-uri: http://localhost:18080/realms/moviebrains
   threads:
     virtual:
       enabled: true
 
 keycloak:
-  realm: SpringBootKeycloak
-  client-id: login-app
-  client-secret: suvRUa2B50tBx2nELcfJ0j5EnygYYcWe
-  client-name: login-app
+  realm: moviebrains
+  client-id: identity-app
+  client-secret: 8sNojAwDeV9oIf5wHyOr0MT6wi7hZf9J
+  client-name: identity-app
   url: 'http://localhost:18080'
 logging:
   level:

@@ -13,12 +13,6 @@ Identity management
 - keycloak production mode (https, health check...)
 - refacto
 
-### Export realm and user from keycloak docker container
-```
-docker exec -u root -it docker_mb-identity-kelcloak_1 /opt/keycloak/bin/kc.sh export --dir . --users realm_file --realm SpringBootKeycloak
-docker exec -u root -it docker_mb-identity-kelcloak_1 cat SpringBootKeycloak-realm.json > realm.json
-```
-
 # Getting Started
 
 ### Reference Documentation
