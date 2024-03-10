@@ -25,6 +25,7 @@ class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
     companion object {
         private const val REALM_ACCESS_CLAIM = "realm_access"
         private const val ROLES_CLAIM = "roles"
+        private const val RESOURCE_ACCESS_CLAIM = "resource_access"
     }
 
     override fun convert(jwt: Jwt): AbstractAuthenticationToken? {
@@ -40,7 +41,7 @@ class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
 
     private fun extractResourceRoles(jwt: Jwt): Collection<GrantedAuthority> {
         val realmAccess: Map<String, Collection<String>>? = jwt.getClaim(REALM_ACCESS_CLAIM)
-        val resourceAccess: Map<String, Map<String, Collection<String>>>? = jwt.getClaim("resource_access")
+        val resourceAccess: Map<String, Map<String, Collection<String>>>? = jwt.getClaim(RESOURCE_ACCESS_CLAIM)
 
         var allRoles: Collection<String> = ArrayList()
         val resourceRoles: Collection<String>
@@ -48,18 +49,18 @@ class JwtAuthConverter: Converter<Jwt, AbstractAuthenticationToken> {
 
         if (resourceAccess != null && resourceAccess["account"] != null) {
             val account = resourceAccess["account"] as Map<String, Collection<String>>
-            if (account.containsKey("roles")) {
-                resourceRoles = account["roles"] as Collection<String>
+            if (account.containsKey(ROLES_CLAIM)) {
+                resourceRoles = account[ROLES_CLAIM] as Collection<String>
                 allRoles = allRoles.plus(resourceRoles)
             }
         }
 
         if(realmAccess != null && realmAccess.containsKey(ROLES_CLAIM)){
-            realmRoles = realmAccess["roles"] as Collection<String>
+            realmRoles = realmAccess[ROLES_CLAIM] as Collection<String>
             allRoles = allRoles.plus(realmRoles)
         }
 
-        // TODO vérifier le client qui envoit un token
+        // TODO verify the client
         /*if (allRoles.isEmpty() || !Objects.equals(resourceId,jwt.getClaim("azp")) ) {
             return setOf();
         }*/
